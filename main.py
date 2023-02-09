@@ -1,26 +1,28 @@
-import os #Module cung cấp các chức năng được sử dụng để tương tác với hệ điều hành
-import playsound #Một module đa nền tảng có thể phát các tệp âm thanh
-import speech_recognition as sr #Nhận diện giọng nói
-import time #Module để xử lý các tác vụ liên quan đến thời gian
-import ctypes #Cho phép bạn sử dụng các lib sẵn có từ một ngôn ngữ khác
-import wikipedia #Truy cập và phân tích dữ liệu từ Wikipedia
-import datetime #Làm việc với đối tượng ngày
-import json #Luu trữ và trao đổi dữ liệu, được viết bằng JavaScript
-import re #Được sử dụng để kiểm tra xem một chuỗi có chưa mẫu tìm kiêms được chỉ định hay không
-import webbrowser #Module webbrowser cung cấp giao diện mức cao để cho phép hiển thị các tài liệu trên nền Web cho người dùng
-import smtplib #Module tích hợp sẵn để gửi email
-import requests #Một module Python có thể sử dụng để gửi tất cả các loại yêu cầu HTTP
-import urllib.request as urllib2 #Module có thể dùng để mở các URL
-from selenium import webdriver #Module cung cấp tất cả các triển khai WebDriver
-from selenium.webdriver.common.keys import Keys #Lớp Key cung cấp các phím trong bàn phím như RETURN, F1, ALT,
-from webdrivermanager.chrome import ChromeDriverManager #Triển khai WebDriver sử dụng với Chrome
-from time import strftime #Module thời gian đại diện cho một thời gian được trả về bởi gmtime() hoặc localtime()
-from gtts import gTTS #Module chuyển văn bản thành giọng nói
-from youtube_search import YoutubeSearch #Tìm kiếm, lấy thông tin video và danh sách phát trên YouTube bằng liên kết
+import os  # Module cung cấp các chức năng được sử dụng để tương tác với hệ điều hành
+import playsound  # Một module đa nền tảng có thể phát các tệp âm thanh
+import speech_recognition as sr  # Nhận diện giọng nói
+import time  # Module để xử lý các tác vụ liên quan đến thời gian
+import ctypes  # Cho phép bạn sử dụng các lib sẵn có từ một ngôn ngữ khác
+import wikipedia  # Truy cập và phân tích dữ liệu từ Wikipedia
+import datetime  # Làm việc với đối tượng ngày
+import json  # Luu trữ và trao đổi dữ liệu, được viết bằng JavaScript
+import re  # Được sử dụng để kiểm tra xem một chuỗi có chưa mẫu tìm kiêms được chỉ định hay không
+import \
+    webbrowser  # Module webbrowser cung cấp giao diện mức cao để cho phép hiển thị các tài liệu trên nền Web cho người dùng
+import smtplib  # Module tích hợp sẵn để gửi email
+import requests  # Một module Python có thể sử dụng để gửi tất cả các loại yêu cầu HTTP
+import urllib.request as urllib2  # Module có thể dùng để mở các URL
+from selenium import webdriver  # Module cung cấp tất cả các triển khai WebDriver
+from selenium.webdriver.common.keys import Keys  # Lớp Key cung cấp các phím trong bàn phím như RETURN, F1, ALT,
+from webdrivermanager.chrome import ChromeDriverManager  # Triển khai WebDriver sử dụng với Chrome
+from time import strftime  # Module thời gian đại diện cho một thời gian được trả về bởi gmtime() hoặc localtime()
+from gtts import gTTS  # Module chuyển văn bản thành giọng nói
+from youtube_search import YoutubeSearch  # Tìm kiếm, lấy thông tin video và danh sách phát trên YouTube bằng liên kết
 
 wikipedia.set_lang('vi')
 language = 'vi'
 path = ChromeDriverManager().download_and_install()
+
 
 def speak(text):
     print("Friday: {}".format(text))
@@ -28,6 +30,7 @@ def speak(text):
     tts.save("sound.mp3")
     playsound.playsound("sound.mp3", False)
     os.remove("sound.mp3")
+
 
 def get_audio():
     r = sr.Recognizer()
@@ -42,8 +45,10 @@ def get_audio():
             print("...")
             return 0
 
+
 def stop():
     speak("Hẹn gặp lại bạn sau!")
+
 
 def get_text():
     for i in range(3):
@@ -56,6 +61,7 @@ def get_text():
     stop()
     return 0
 
+
 def hello(name):
     day_time = int(strftime('%H'))
     if day_time < 12:
@@ -64,6 +70,7 @@ def hello(name):
         speak("Chào buổi chiều bạn {}. Bạn đã dự định gì cho chiều nay chưa.".format(name))
     else:
         speak("Chào buổi tối bạn {}. Bạn đã ăn tối chưa nhỉ.".format(name))
+
 
 def get_time(text):
     now = datetime.datetime.now()
@@ -74,6 +81,7 @@ def get_time(text):
               (now.day, now.month, now.year))
     else:
         speak("Bot chưa hiểu ý của bạn. Bạn nói lại được không?")
+
 
 def open_application(text):
     if "edge" in text:
@@ -88,6 +96,7 @@ def open_application(text):
     else:
         speak("Ứng dụng chưa được cài đặt. Bạn hãy thử lại!")
 
+
 def open_website(text):
     reg_ex = re.search('mở (.+)', text)
     if reg_ex:
@@ -99,6 +108,7 @@ def open_website(text):
     else:
         return False
 
+
 def open_google_and_search(text):
     search_for = text.split("kiếm", 1)[1]
     speak('Okay!')
@@ -107,6 +117,7 @@ def open_google_and_search(text):
     que = driver.find_element("//input[@name='q']")
     que.send_keys(str(search_for))
     que.send_keys(Keys.RETURN)
+
 
 def send_email(text):
     speak('Bạn gửi email cho ai nhỉ')
@@ -124,6 +135,7 @@ def send_email(text):
         speak('Email của bạn vùa được gửi. Bạn check lại email nhé hihi.')
     else:
         speak('Bot không hiểu bạn muốn gửi email cho ai. Bạn nói lại được không?')
+
 
 def current_weather():
     speak("Bạn muốn xem thời tiết ở đâu ạ.")
@@ -153,13 +165,18 @@ def current_weather():
         Nhiệt độ trung bình là {temp} độ C
         Áp suất không khí là {pressure} héc tơ Pascal
         Độ ẩm là {humidity}%
-        Trời hôm nay quang mây. Dự báo mưa rải rác ở một số nơi.""".format(day = now.day,month = now.month, year= now.year, hourrise = sunrise.hour, minrise = sunrise.minute,
-                                                                           hourset = sunset.hour, minset = sunset.minute,
-                                                                           temp = current_temperature, pressure = current_pressure, humidity = current_humidity)
+        Trời hôm nay quang mây. Dự báo mưa rải rác ở một số nơi.""".format(day=now.day, month=now.month, year=now.year,
+                                                                           hourrise=sunrise.hour,
+                                                                           minrise=sunrise.minute,
+                                                                           hourset=sunset.hour, minset=sunset.minute,
+                                                                           temp=current_temperature,
+                                                                           pressure=current_pressure,
+                                                                           humidity=current_humidity)
         speak(content)
         time.sleep(20)
     else:
         speak("Không tìm thấy địa chỉ của bạn")
+
 
 def play_song():
     speak('Xin mời bạn chọn tên bài hát')
@@ -172,10 +189,11 @@ def play_song():
     webbrowser.open(url)
     speak("Bài hát bạn yêu cầu đã được mở.")
 
+
 def change_wallpaper():
     api_key = 'RF3LyUUIyogjCpQwlf-zjzCf1JdvRwb--SLV6iCzOxw'
     url = 'https://api.unsplash.com/photos/random?client_id=' + \
-        api_key  # pic from unspalsh.com
+          api_key  # pic from unspalsh.com
     f = urllib2.urlopen(url)
     json_string = f.read()
     f.close()
@@ -183,8 +201,8 @@ def change_wallpaper():
     photo = parsed_json['urls']['full']
     # Location where we download the image to.
     urllib2.urlretrieve(photo, "C:/Users/Night Fury/Downloads/a.png")
-    image=os.path.join("C:/Users/Night Fury/Downloads/a.png")
-    ctypes.windll.user32.SystemParametersInfoW(20,0,image,3)
+    image = os.path.join("C:/Users/Night Fury/Downloads/a.png")
+    ctypes.windll.user32.SystemParametersInfoW(20, 0, image, 3)
     speak('Hình nền máy tính vừa được thay đổi')
 
 
@@ -206,6 +224,7 @@ def read_news():
         if number <= 3:
             webbrowser.open(result['url'])
 
+
 def tell_me_about():
     try:
         speak("Bạn muốn nghe về gì ạ")
@@ -225,6 +244,7 @@ def tell_me_about():
     except:
         speak("Bot không định nghĩa được thuật ngữ của bạn. Xin mời bạn nói lại")
 
+
 def help_me():
     speak("""Bot có thể giúp bạn thực hiện các câu lệnh sau đây:
     1. Chào hỏi
@@ -237,6 +257,7 @@ def help_me():
     8. Thay đổi hình nền máy tính
     9. Đọc báo hôm nay
     10. Kể bạn biết về thế giới """)
+
 
 def assistant():
     speak("Xin chào, bạn tên là gì nhỉ?")
