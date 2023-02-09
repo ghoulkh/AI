@@ -7,8 +7,7 @@ import wikipedia  # Truy cập và phân tích dữ liệu từ Wikipedia
 import datetime  # Làm việc với đối tượng ngày
 import json  # Luu trữ và trao đổi dữ liệu, được viết bằng JavaScript
 import re  # Được sử dụng để kiểm tra xem một chuỗi có chưa mẫu tìm kiêms được chỉ định hay không
-import \
-    webbrowser  # Module webbrowser cung cấp giao diện mức cao để cho phép hiển thị các tài liệu trên nền Web cho người dùng
+import webbrowser  # Module webbrowser cung cấp giao diện mức cao để cho phép hiển thị các tài liệu trên nền Web cho người dùng
 import smtplib  # Module tích hợp sẵn để gửi email
 import requests  # Một module Python có thể sử dụng để gửi tất cả các loại yêu cầu HTTP
 import urllib.request as urllib2  # Module có thể dùng để mở các URL
